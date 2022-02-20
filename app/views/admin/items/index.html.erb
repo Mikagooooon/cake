@@ -1,2 +1,18 @@
 <h1>Admin::Items#index</h1>
-<p>Find me in app/views/admin/items/index.html.erb</p>
+<h1>New Item</h1>
+<%= flash[:notice] %>
+<%= form_with model: @item, local:true do |f| %>
+
+<h4>商品名</h4>
+<%= f.text_field :name %>
+
+<h4>商品説明</h4>
+<%= f.text_area :introduction %>
+
+<%= f.submit '新規登録' %>
+<% end %>
+
+<% @items.each do |item| %>
+  <p><%= link_to item.name,"/admin/items/#{item.id}" %></p>
+  <p><%= item.introduction %></p>
+<% end %>

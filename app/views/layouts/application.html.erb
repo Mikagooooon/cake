@@ -11,8 +11,9 @@
   </head>
 
   <body>
-    <header>
-      <% if customer_signed_in? %>
+    <div class="headermenus">
+      <div class="headermenus_customer">
+        <% if customer_signed_in? %>
         <%= link_to "マイページ", public_customers_my_page_path %>
         <%= link_to "商品一覧", items_path %>
         <%= link_to "カート", public_cart_items_path %>
@@ -23,7 +24,16 @@
         <%= link_to "新規登録", new_customer_registration_path %>
         <%= link_to "ログイン", new_customer_session_path %>
       <% end %>
-    </header>
+    </div>
+    <div class="headermenus_admin">
+      <% if admin_signed_in? %>
+        <%= link_to "商品一覧", admin_items_path %>
+        <%= link_to "会員一覧", admin_customers_path %>
+        <%= link_to "注文履歴一覧", public_orders_path %>
+        <%= link_to "ジャンル一覧", admin_genres_path %>
+        <%= link_to "Log out", destroy_admin_session_path, method: :delete %>
+      <% end %>
     <%= yield %>
+    </div>
   </body>
 </html>
