@@ -1,6 +1,8 @@
 class Admin::ItemsController < ApplicationController
+  before_action :authenticate_admin!, except: [:top]
   def index
     @items = Item.all
+    @item = Item.new
   end
 
   def new
@@ -11,7 +13,7 @@ class Admin::ItemsController < ApplicationController
     @item = Item.new(item_params)
     if @item.save
       flash[:notice] = 'You have created item successfully.'
-      redirect_to item_path(@item.id)
+      redirect_to admin_item_path(@item.id)
     else
       render :index
     end
@@ -19,7 +21,6 @@ class Admin::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-
   end
 
   def edit
@@ -39,6 +40,6 @@ class Admin::ItemsController < ApplicationController
   private
 
   def item_params
-    params.permit(:name, :introduction)
+    params.require(:item).permit(:name, :introduction)
   end
 end

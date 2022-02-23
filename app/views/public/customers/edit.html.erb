@@ -1,7 +1,7 @@
 <h1>編集ページ</h1>
 
 <h2>会員情報編集</h2>
-  <%= form_with model: @customer,url:public_customers_path, method: :patch, local:true do |f| %>
+  <%= form_with model: @customer,url:customers_path, method: :patch, local:true do |f| %>
     <h4>氏名</h4>
     <%= f.text_field :last_name, autofocus: true, id:"inputLastaName", placeholder:"姓" %>
     <%= f.text_field :first_name %>
@@ -25,3 +25,5 @@
 
     <%= f.submit '編集内容を保存' %>
   <% end %>
+
+  <%= link_to "退会する", customers_hide_path %>
