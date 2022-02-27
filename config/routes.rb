@@ -1,18 +1,21 @@
 Rails.application.routes.draw do
 
-  root to: "homes#top"
-  get '/about' => 'homes#about'
-  resources :items, only: [:index, :show]
-  get "/customers/:name/hide" => "homes#hide", as: "confirm_hide"
-  patch "/customers/:name/withdraw" => "homes#withdraw", as: "withdraw_customers"
-
-
   devise_for :customers,path: "",skip: [:passwords], controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
-　
+
+  devise_for :admin,skip: [:registrations, :passwords], controllers: {
+    sessions: "admin/sessions"
+  }
+
+  root to: "homes#top"
+  get '/about' => 'homes#about'
+  get "/customers/:name/hide" => "homes#hide", as: "confirm_hide"
+  patch "/customers/:name/withdraw" => "homes#withdraw", as: "withdraw_customers"
+
     scope module: "public" do
+      resources :items, only: [:index, :show]
       resources :cart_items, only: [:index, :update, :destroy, :create]
       resources :orders, only: [:new, :create, :index, :show]
       resources :addresses, only: [:index, :edit, :create, :update, :destroy]
@@ -25,12 +28,6 @@ Rails.application.routes.draw do
       post '/oders/confirm' => 'orders#confirm'
       get 'orders/complete' =>'orders#complete'
       end
-
-
-
-  devise_for :admin,skip: [:registrations, :passwords], controllers: {
-    sessions: "admin/sessions"
-  }
 
 
   namespace :admin do
