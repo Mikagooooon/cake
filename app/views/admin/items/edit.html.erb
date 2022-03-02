@@ -3,14 +3,17 @@
 
   <%= form_with model: @item,url:admin_item_path, method: :patch, local:true do |f| %>
 
-    <h4>商品名</h4>
-    <%= f.text_field :name %>
+　　<%= f.label :商品画像 %><br />
+    <%= f.file_field :image_id, accept:"image/*" %><br />
 
-    <h4>商品紹介</h4>
+    <%= f.label :商品名 %><br />
+    <%= f.text_field :name %><br />
+
+    <%= f.label :商品説明 %><br />
     <%= f.text_field :introduction %><br />
 
-    <h4>Image</h4>
-    <%= f.file_field :image_id, accept:"image/*" %>
+    <%= f.label :税抜価格 %><br />
+　　<%= f.text_field :price, data: { autonumeric: {aSign: '¥ ', mDec: 0 } } %><br />
 
     <%= f.submit '編集内容を保存' %>
   <% end %>

@@ -2,10 +2,11 @@
 
 <p><%= @item.name %></p>
 <p><%= @item.introduction %></p>
+<p><%= @item.price %></p>
 
 <%= form_with model: @cart_item, local:true do |f| %>
 <%= f.select :amount, *[1..9] %>
-<% f.hidden_field :name, :value => "カートに追加する" %>
+<%= f.hidden_field :item_id, :value => @item.id %>
 
 <%= f.submit 'カートに追加する' %>
 <% end %>
