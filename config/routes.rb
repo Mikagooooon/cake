@@ -16,7 +16,10 @@ Rails.application.routes.draw do
 
     scope module: "public" do
       resources :items, only: [:index, :show]
+      delete '/cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all_cart_items'
       resources :cart_items, only: [:index, :update, :destroy, :create]
+      get 'orders/complete' =>'orders#complete'
+      post '/orders/confirm' => 'orders#confirm'
       resources :orders, only: [:new, :create, :index, :show]
       resources :addresses, only: [:index, :edit, :create, :update, :destroy]
       get '/customers/my_page' => 'customers#show', as: :my_page
@@ -24,9 +27,6 @@ Rails.application.routes.draw do
       patch '/customers' => 'customers#update'
       get '/customers/hide' => 'customers#hide'
       patch '/customers/withdrawal' => 'customers#withdrawal'
-      delete '/cart_items/destroy_all' => 'cart_items#destroy_all'
-      post '/oders/confirm' => 'orders#confirm'
-      get 'orders/complete' =>'orders#complete'
       end
 
 

@@ -16,10 +16,13 @@ class Public::CartItemsController < ApplicationController
   end
 
   def destroy_all
+    @cart_items = current_customer.cart_items.includes(:item)
+    @cart_items.destroy_all
+      redirect_to cart_items_path
   end
 
   def create
-    @cart_item = current_customer.cart_items.new(cart_item_params)
+      @cart_item = current_customer.cart_items.new(cart_item_params)
     if @cart_item.save!
        redirect_to cart_items_path
     end
@@ -28,6 +31,6 @@ class Public::CartItemsController < ApplicationController
   private
 
   def cart_item_params
-    params.require(:cart_item).permit(:amount)
+    params.require(:cart_item).permit(:item_id, :amount)
   end
 end

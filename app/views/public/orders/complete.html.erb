@@ -1,2 +1,27 @@
 <h1>Public::Orders#complete</h1>
 <p>Find me in app/views/public/orders/complete.html.erb</p>
+
+<h1>注文情報確認</h1>
+<table>
+  <thead>
+      <th>商品名</th>
+      <th>単価(税込)</th>
+      <th>小計</th>
+  </thead>
+  <tbody>
+  <% @cart_items.each do |cart_item| %>
+      <tr>
+        <td><%= cart_item.item.name %></td>
+        <td><%= cart_item.item.with_tax_price %></td>
+        <td><%= cart_item.subtotal %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= @cart_items.sum(&:subtotal) %>
+
+
+<p>支払方法</p>
+
+<p>お届け先</p>

@@ -1,2 +1,41 @@
 <h1>Public::Orders#new</h1>
 <p>Find me in app/views/public/orders/new.html.erb</p>
+
+<p>支払方法</p>
+<%= form_with model: @order, local: true do |form| %>
+  <%= form.radio_button :payment_method, :credit_card %>
+  <%= form.label :payment_method, "クレジットカード", {value: :credit_card, style: "display: inline-block;"} %>
+  <%= form.radio_button :payment_method, :transfer %>
+  <%= form.label :payment_method, "銀行振込", {value: :transfer, style: "display: inline-block;"} %>
+<% end %>
+
+
+<%= form_with model: @order, method: :post, local: true do |f| %>
+  <%= f.radio_button :address, :my_address %>
+  <%= f.label :address, "ご自身の住所", {value: :my_address, style: "display: inline-block;"} %>
+  <p><%= @customer.postal_code %></p>
+  <p><%= @customer.address %></p>
+  <p><%= @customer.last_name %></p>
+  <p><%= @customer.first_name %></p>
+
+  <%= f.radio_button :address, :select_address %>
+  <%= f.label :address, "登録住所から選択", {value: :select_address, style: "display: inline-block;"} %>
+　<%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display) %>
+
+  <%= f.radio_button :address, :new_address %>
+  <%= f.label :address, "新しいお届け先", {value: :new_address, style: "display: inline-block;"} %>
+  <%= form_with model: @address,url: addresses_path, local:true do |f| %>
+
+  <h4>宛名</h4>
+  <%= f.text_field :name %>
+
+  <h4>郵便番号</h4>
+  <%= f.text_field :postal_code %>
+
+  <h4>住所</h4>
+  <%= f.text_field :address%>
+
+  <% end %>
+<% end %>
+
+<%= link_to "確認画面へ進む", orders_complete_path %>

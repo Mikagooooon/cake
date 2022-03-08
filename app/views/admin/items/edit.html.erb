@@ -4,7 +4,7 @@
   <%= form_with model: @item,url:admin_item_path, method: :patch, local:true do |f| %>
 
 　　<%= f.label :商品画像 %><br />
-    <%= f.file_field :image_id, accept:"image/*" %><br />
+    <%= f.file_field :image, accept:"image/*" %><br />
 
     <%= f.label :商品名 %><br />
     <%= f.text_field :name %><br />

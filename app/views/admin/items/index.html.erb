@@ -1,7 +1,10 @@
 <h1>Admin::Items#index</h1>
 <h1>New Item</h1>
 <%= flash[:notice] %>
-<%= form_with model: @item,url: admin_items_path, local:true do |f| %>
+<%= form_with model: @item,url: admin_items_path do |f| %>
+
+<%= f.label :商品画像 %><br />
+<%= f.file_field :image, accept: "image/*" %><br />
 
 <%= f.label :商品名 %><br />
 <%= f.text_field :name %><br />
@@ -16,6 +19,7 @@
 <% end %>
 
 <% @items.each do |item| %>
+  <%= image_tag item.get_image, size: "200x200" %>
   <p><%= link_to item.name,"/admin/items/#{item.id}" %></p>
   <p><%= item.introduction %></p>
 <% end %>
