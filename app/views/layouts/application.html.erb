@@ -2,51 +2,87 @@
 <html>
   <head>
     <title>NaganoCake</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <script src="https://kit.fontawesome.com/79e328e066.js" crossorigin="anonymous"></script>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body　class="d-flex flex-column vh-100">
+  <body class="d-flex flex-column vh-100">
     <header class="shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
+        <div class ="container">
           <a class="navbar-brand" href="/">
             <span>NaganoCake</span>
           </a>
-          <span class="navbar-toggler-icon"></span>
-          <div class="collapse navbar-cpllapse" id="navbarNavDropdown">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ml-auto">
           <% if admin_signed_in? %>
-              <%= link_to "商品一覧", admin_items_path %>
-              <%= link_to "会員一覧", admin_customers_path %>
-              <%= link_to "注文履歴一覧", orders_path %>
-              <%= link_to "ジャンル一覧", admin_genres_path %>
-              <%= link_to "Log out", destroy_admin_session_path, method: :delete %>
+              <%= link_to admin_items_path, class: "nav-link text-light" do %>
+              商品一覧
+              <% end %>
+              <%= link_to admin_customers_path, class: "nav-link text-light" do %>
+              会員一覧
+              <% end %>
+              <%= link_to orders_path, class: "nav-link text-light" do %>
+              注文履歴一覧
+              <% end %>
+              <%= link_to admin_genres_path, class: "nav-link text-light" do %>
+              ジャンル
+              <% end %>
+              <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link text-light" do %>
+              Log out
+              <% end %>
             <% else %>
               <% if customer_signed_in? %>
-              <%= link_to "マイページ", my_page_path %>
-              <%= link_to "商品一覧", items_path %>
-              <%= link_to "カート", cart_items_path %>
-              <%= link_to "Log out", destroy_customer_session_path, method: :delete %>
+              <%= link_to my_page_path, class: "nav-link text-light" do %>
+              マイページ
+              <% end %>
+              <%= link_to items_path, class: "nav-link text-light" do %>
+              商品一覧
+              <% end %>
+              <%= link_to cart_items_path, class: "nav-link text-light" do %>
+              カート
+              <% end %>
+              <%= link_to destroy_customer_session_path, method: :delete, class: "nav-link text-light" do %>
+              Log out
+              <% end %>
             <% else %>
-              <%= link_to "About", about_path %>
-              <%= link_to "商品一覧", items_path %>
-              <%= link_to "新規登録", new_customer_registration_path %>
-              <%= link_to "ログイン", new_customer_session_path %>
+            <%= link_to about_path, class: "nav-link text-light" do %>
+              About
+              <% end %>
+              <%= link_to items_path, class: "nav-link text-light" do %>
+              商品一覧
+              <% end %>
+              <%= link_to new_customer_registration_path, class: "nav-link text-light" do %>
+              新規登録
+              <% end %>
+              <%= link_to new_customer_session_path, class: "nav-link text-light" do %>
+              Log in
+              <% end %>
             <% end %>
           <% end %>
           </ul>
+          </div>
         </div>
       </nav>
     </header>
+
     <main class="mb-auto">
     <%= yield %>
     </main>
   </body>
+  <footer>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="mx-auto">
+          <p>CopyRight Infratop.inc</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 </html>
