@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(version: 2022_03_07_120740) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "customers_id"
     t.string "last_name"
     t.string "first_name"
     t.string "last_name_kana"
@@ -134,11 +133,11 @@ ActiveRecord::Schema.define(version: 2022_03_07_120740) do
   create_table "orders", force: :cascade do |t|
     t.integer "customer_id"
     t.string "postal_code"
-    t.string "address", default: 0
+    t.string "address"
     t.string "name"
     t.integer "shipping_cost"
     t.integer "total_payment"
-    t.integer "payment_method", default: 0
+    t.integer "payment_method"
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

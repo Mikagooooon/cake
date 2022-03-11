@@ -1,12 +1,26 @@
-<h1>Admin::Items#show</h1>
+<h2>商品詳細</h2>
+<div class="container mt-5 px-5 px-sm-0">
+  <div class="row">
+    <div class="col-4">
+        <% if @item.image.attached? %>
+        <%= image_tag @item.image, size: "300x250" %>
+        <% else %>
+        <%= image_tag 'no_image', size: "300x250" %>
+        <% end %>
+    </div>
+    <div class="col-md-3 offset-md-1">
+      <ul>
+        <li><p>商品名</p><%= @item.name %></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
 
-<% if @item.image.attached? %>
-<%= image_tag @item.image, size: "200x200" %>
-<% else %>
-<%= image_tag 'no_image', size: "200x200" %>
-<% end %>
-<p><%= @item.name %></p>
-<p><%= @item.introduction %></p>
-<p><%= @item.price %></p>
+        <p><%= @item.introduction %></p>
+        <p><%= @item.price %></p>
+        <%= link_to "編集する", edit_admin_item_path, class:"btn btn-sm btn-success" %>
+    </div>
+  </div>
+</div>
 
-<%= link_to "編集する", edit_admin_item_path %>

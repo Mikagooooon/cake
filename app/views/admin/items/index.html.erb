@@ -1,25 +1,29 @@
-<h1>Admin::Items#index</h1>
-<h1>New Item</h1>
-<%= flash[:notice] %>
-<%= form_with model: @item,url: admin_items_path do |f| %>
-
-<%= f.label :商品画像 %><br />
-<%= f.file_field :image, accept: "image/*" %><br />
-
-<%= f.label :商品名 %><br />
-<%= f.text_field :name %><br />
-
-<%= f.label :商品説明 %><br />
-<%= f.text_area :introduction %><br />
-
-<%= f.label :税抜価格 %><br />
-<%= f.text_field :price, data: { autonumeric: {aSign: '¥ ', mDec: 0 } } %>円<br />
-
-<%= f.submit '新規登録' %>
-<% end %>
-
-<% @items.each do |item| %>
-  <%= image_tag item.get_image, size: "200x200" %>
-  <p><%= link_to item.name,"/admin/items/#{item.id}" %></p>
-  <p><%= item.introduction %></p>
-<% end %>
+<div class="container">
+  <div claas="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h2>商品一覧</h2>
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th>商品id</th>
+            <th>商品名</th>
+            <th>税抜価格</th>
+            <th>ジャンル</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @items.each do |item| %>
+          <tr>
+            <td><%= item.id %></td>
+            <td><%= link_to item.name,"/admin/items/#{item.id}" %></td>
+            <td><%= item.price %></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <% end %>
+        </tbody>
+    </div>
+  </div>
+</div>
+<p class="text-right"><%= link_to "新規登録", new_admin_item_path %></p>
