@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       patch '/customers' => 'customers#update'
       get '/customers/hide' => 'customers#hide'
       patch '/customers/withdrawal' => 'customers#withdrawal'
+      resources :order_history_details, only: [:show]
       end
 
 
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
-    resources :orders, only: [:show, :update]
+    resources :orders, only: [:index, :show, :update]
     resources :order_history_details, only: [:update]
   end
 

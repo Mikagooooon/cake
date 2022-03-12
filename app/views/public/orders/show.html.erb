@@ -1,2 +1,20 @@
-<h1>Public::Orders#show</h1>
-<p>Find me in app/views/public/orders/show.html.erb</p>
+<h1>注文詳細履歴</h1>
+
+<%= @order.created_at.to_s(:datetime_jp) %>
+<%= @order.address %>
+<%= @order.payment_method %>
+
+<%= @cart_items.sum(&:subtotal) %>
+<%= @order.total_payment %>
+<%= @order.shipping_cost %>
+
+<% @items.each do |item| %>
+<p><%= item.name %></p>
+<p><%= item.price %></p>
+<% @order.order_history_details.each do |order_history_detail| %>
+<%= order_history_detail.quantity %>
+<% end %>
+<% @cart_items.each do |cart_item| %>
+<p><%= cart_item.subtotal %></p>
+<% end %>
+<% end %>

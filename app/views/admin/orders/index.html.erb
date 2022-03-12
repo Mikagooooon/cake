@@ -1,0 +1,30 @@
+
+<div class="container">
+  <div claas="row">
+    <div class="col-md-8 offset-md-1">
+      <table>
+        <thead>
+          <tr>
+            <th>購入日時</th>
+            <th>購入者</th>
+            <th>注文個数</th>
+            <th>注文ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+          <tr>
+              <td><%= order.created_at.to_s(:datetime_jp) %></td>
+              <td><%= order.name %></td>
+              <td><% order.order_history_details.each do |order_history_detail| %>
+                <%= order_history_detail.quantity %>
+                <% end %>
+              </td>
+              <td><%= link_to "表示する", admin_order_path(order.id), class:"btn btn-sm btn-primary" %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

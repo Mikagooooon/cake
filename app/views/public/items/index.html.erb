@@ -3,7 +3,9 @@
     <div class="col-md-10 col-md-offset-1">
       <h1>商品一覧</h1>
         <% @items.each do |item| %>
+        <%= link_to item_path (item.id) do %>
           <%= image_tag item.get_image, size: "200x200" %>
+        <% end %>
           <p><%= link_to item.name,"/items/#{item.id}" %></p>
           <p><%= item.introduction %></p>
         <% end %>

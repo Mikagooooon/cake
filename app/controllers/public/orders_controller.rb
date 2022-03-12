@@ -1,4 +1,5 @@
 class Public::OrdersController < ApplicationController
+before_action :authenticate_customer!
 
   def index
     @orders = Order.all
@@ -49,11 +50,28 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     if @order.save
       flash[:notice] = 'You have created order successfully.'
-      redirect_to order_path(@order.id)
+      redirect_to orders_complete_path
     end
+
+    @cart_items = current_customer.cart_items.includes(:item)
+    @cart_items.each do |cart_item|
+    @order_history_details = OrderHistoryDetail.new
+    @order_history_details.order_id = @order.id
+    @order_history_details.item_id = cart_item.item_id
+    @order_history_details.unit_price = cart_item.item.price
+    @order_history_details.quantity = cart_item.amount
+    @order_history_details.production_status = 0
+    @order_history_details.save
+    end
+    current_customer.cart_items.destroy_all
   end
 
   def show
+    @order = Order.find(params[:id])
+    @cart_items = current_customer.cart_items
+    @order.shipping_cost = 800
+    @order.total_payment = @cart_items.sum(&:subtotal) + @order.shipping_cost
+    @items = Item.all
   end
 
   private
@@ -63,8 +81,8 @@ class Public::OrdersController < ApplicationController
                                   :postal_code,
                                   :address,
                                   :name,
-                                  :postage,
-                                  :total_amount,
+                                  :shipping_cost,
+                                  :total_payment,
                                   :payment_method)
   end
 end

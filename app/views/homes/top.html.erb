@@ -8,3 +8,18 @@
     </div>
   </div>
 </div>
+
+<div class="container">
+  <div claas="row">
+      <h1>新着商品</h1>
+    <div class="d-flex justify-content-around">
+        <% @items.each do |item| %>
+        <%= link_to item_path (item.id) do %>
+          <%= image_tag item.get_image, size: "200x200" %>
+        <% end %>
+          <p><%= link_to item.name,"/items/#{item.id}" %></p>
+          <p><%= item.introduction %></p>
+        <% end %>
+    </div>
+  </div>
+</div>

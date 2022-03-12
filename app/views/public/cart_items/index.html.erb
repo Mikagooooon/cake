@@ -1,23 +1,31 @@
-<h1>Public::CartItems#index</h1>
+<h3 class='pt-5 pl-5 text-left mb-50'>ショッピングカート</h3>
+<div class='py-4 pr-5 text-right'><%= button_to "カートを空にする", destroy_all_cart_items_path, class:"btn btn-sm btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %></div>
+<div class='container'>
+  <div class='header-cart'>
+  </div>
+  <div class="row">
+    <div class="justify-content-center">
+      <table class='justify-content-between'>
+        <thead>
+            <th>商品名</th>
+            <th>単価(税込)</th>
+            <th>小計</th>
+        </thead>
+        <tbody>
 
-<table>
-  <thead>
-      <th>商品名</th>
-      <th>単価(税込)</th>
-      <th>小計</th>
-  </thead>
-  <tbody>
-
-  <% @cart_items.each do |cart_item| %>
-      <tr>
-        <td><%= cart_item.item.name %></td>
-        <td><%= cart_item.item.with_tax_price %></td>
-        <td><%= cart_item.subtotal %></td>
-        <td><%= button_to "Destroy", cart_item_path(cart_item.id), class:"btn btn-sm btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-  <%= button_to "全て削除" , destroy_all_cart_items_path, method: :delete, "data-confirm" => "本当に削除しますか？" %>
-<%= @cart_items.sum(&:subtotal) %>
-<%= link_to "情報入力に進む", new_order_path %>
+        <% @cart_items.each do |cart_item| %>
+            <tr>
+              <td><%= cart_item.item.name %></td>
+              <td><%= cart_item.item.with_tax_price %></td>
+              <td><%= cart_item.subtotal %></td>
+              <td><%= button_to "Destroy", cart_item_path(cart_item.id), class:"btn btn-sm btn-danger", method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<p class='col-3 text-right mb-50'><%= @cart_items.sum(&:subtotal) %>円</p>
+<div class='pl-5'><%= link_to "買い物を続ける", root_path, class:"btn btn-sm btn-primary" %></div>
+<div class='text-center'><%= button_to "情報入力に進む", new_order_path, class:"btn btn-sm btn-success" %></div>

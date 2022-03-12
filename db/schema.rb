@@ -121,8 +121,8 @@ ActiveRecord::Schema.define(version: 2022_03_07_120740) do
   end
 
   create_table "order_history_details", force: :cascade do |t|
-    t.integer "order_history_id"
-    t.integer "product_id"
+    t.integer "order_id"
+    t.integer "item_id"
     t.integer "unit_price"
     t.integer "quantity"
     t.integer "production_status"
