@@ -20,7 +20,6 @@
 </table>
 
 <table class="payment">
-  <% @cart_items.each do |cart_item| %>
     <tr><th>送料</th></tr>
     <tr><td>800</td></tr>
 
@@ -29,8 +28,8 @@
 
     <tr><th>請求金額</th></tr>
     <tr><td><%= @order.total_payment + @order.shipping_cost %></td></tr>
-  <% end %>
 </table>
+
 
 <h5>支払方法</h5>
 <%= @order.payment_method %>
@@ -46,6 +45,9 @@
 <%= f.hidden_field :postal_code, :value => @order.postal_code %>
 <%= f.hidden_field :address, :value => @order.address %>
 <%= f.hidden_field :name, :value => @order.name %>
+<%= f.hidden_field :payment_method, :value => @order.payment_method %>
+<%= f.hidden_field :total_payment, :value => @order.total_payment %>
+<%= f.hidden_field :subtotal, :value => @order.subtotal %>
 
 <%= f.submit '注文を確定する' %>
 <% end %>

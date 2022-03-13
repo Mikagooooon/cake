@@ -1,20 +1,60 @@
-<h1>注文詳細履歴</h1>
+<h1>注文履歴詳細</h1>
 
-<%= @order.created_at.to_s(:datetime_jp) %>
-<%= @order.address %>
-<%= @order.payment_method %>
+<p class="pr-5 pl-5">注文情報</p>
+<table class="col-4">
+  <thead>
+    <tr>
+      <th>注文日</th><td><%= @order.created_at.to_s(:datetime_jp) %></td>
+    </tr>
+    <tr>
+      <th>配送先</th><td><%= @order.address %></td>
+    </tr>
+    <tr>
+      <th>支払方法</th><td><%= @order.payment_method %></td>
+    </tr>
+  </thead>
+</table>
 
-<%= @cart_items.sum(&:subtotal) %>
-<%= @order.total_payment %>
-<%= @order.shipping_cost %>
+<p class="pr-5 pl-5">請求情報</p>
+<table class="col-4">
+  <thead>
+    <tr>
+      <th>商品合計</th><td><%= @total %></td>
+    </tr>
+    <tr>
+      <th>配送料</th><td><%= @order.shipping_cost %></td>
+    </tr>
+    <tr>
+      <th>ご請求額</th><td><%= @order.total_payment %></td>
+    </tr>
+  </thead>
+</table>
 
-<% @items.each do |item| %>
-<p><%= item.name %></p>
-<p><%= item.price %></p>
-<% @order.order_history_details.each do |order_history_detail| %>
-<%= order_history_detail.quantity %>
-<% end %>
-<% @cart_items.each do |cart_item| %>
-<p><%= cart_item.subtotal %></p>
-<% end %>
-<% end %>
+<p class="pr-5 pl-5">注文内容</p>
+<table class="col-4">
+  <thead>
+    <tr>
+      <th>商品</th>
+      <th>単価</th>
+      <th>個数</th>
+      <th>小計</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= @price %></td>
+      <td><%= @quantity %></td>
+      <td><%= @price * @quantity %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%# @items.each do |item| %>
+<p><%#= item.name %></p>
+<p><%#= item.price %></p>
+<%# @order.order_history_details.each do |order_history_detail| %>
+<%#= order_history_detail.quantity %>
+<%# end %>

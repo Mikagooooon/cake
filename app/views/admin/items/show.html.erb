@@ -7,18 +7,20 @@
         <% else %>
         <%= image_tag 'no_image', size: "300x250" %>
         <% end %>
-    </div>
+    </div><br />
     <div class="col-md-3 offset-md-1">
-      <ul>
-        <li><p>商品名</p><%= @item.name %></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-
-        <p><%= @item.introduction %></p>
-        <p><%= @item.price %></p>
+      <table>
+        <tr>
+          <th>商品名</th><td><%= @item.name %></td>
+        </tr>
+        <tr>
+          <th>商品説明</th><td><%= @item.introduction %></td>
+        </tr>
+        <tr>
+          <th>税込価格（税抜価格）</th><td><%= @item.with_tax_price %>(<%= @item.price %>)円</td>
+        </tr>
+      </table>
+        <p></p>
         <%= link_to "編集する", edit_admin_item_path, class:"btn btn-sm btn-success" %>
     </div>
   </div>

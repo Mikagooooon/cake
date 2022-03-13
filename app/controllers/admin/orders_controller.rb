@@ -5,6 +5,32 @@ class Admin::OrdersController < ApplicationController
   end
 
   def show
+    @orders = Order.all
+    @order = Order.find(params[:id])
+    @items = Item.all
+    @item = Item.find(params[:id])
+  end
+
+  def order_params
+    params.require(:order).permit(:customer_id,
+                                  :postal_code,
+                                  :address,
+                                  :name,
+                                  :shipping_cost,
+                                  :total_payment,
+                                  :payment_method)
+  end
+
+  def customer_params
+    params.require(:customer).permit(:last_name,
+                                     :first_name,
+                                     :last_name_kana,
+                                     :first_name_kana,
+                                     :postal_code,
+                                     :address,
+                                     :telephone_number,
+                                     :email,
+                                     :customer_id)
   end
 
 end

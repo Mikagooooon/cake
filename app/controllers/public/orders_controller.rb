@@ -50,7 +50,6 @@ before_action :authenticate_customer!
     @order = Order.new(order_params)
     if @order.save
       flash[:notice] = 'You have created order successfully.'
-      redirect_to orders_complete_path
     end
 
     @cart_items = current_customer.cart_items.includes(:item)
@@ -64,13 +63,19 @@ before_action :authenticate_customer!
     @order_history_details.save
     end
     current_customer.cart_items.destroy_all
+    redirect_to orders_complete_path
   end
 
   def show
     @order = Order.find(params[:id])
-    @cart_items = current_customer.cart_items
+    @total = 0
+    @order.order_history_details.each do |item|
+      @total += item.unit_price * item.quantity
+      @quantity = item.quantity
+      @price = item.unit_price
+    end
     @order.shipping_cost = 800
-    @order.total_payment = @cart_items.sum(&:subtotal) + @order.shipping_cost
+    @order.total_payment = @total + @order.shipping_cost
     @items = Item.all
   end
 

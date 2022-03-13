@@ -13,13 +13,18 @@
   <div claas="row">
       <h1>新着商品</h1>
     <div class="d-flex justify-content-around">
+      <table>
         <% @items.each do |item| %>
-        <%= link_to item_path (item.id) do %>
-          <%= image_tag item.get_image, size: "200x200" %>
+        <tr>
+          <th><%= link_to item_path (item.id) do %>
+          <%= image_tag item.get_image, size: "250x200" %>
+          <% end %>
+          </th>
+          <td><%= link_to item.name,"/items/#{item.id}" %></td>
+          <td><%= item.introduction %></td>
+        </tr>
         <% end %>
-          <p><%= link_to item.name,"/items/#{item.id}" %></p>
-          <p><%= item.introduction %></p>
-        <% end %>
+      </table>
     </div>
   </div>
 </div>
