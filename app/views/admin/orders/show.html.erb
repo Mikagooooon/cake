@@ -34,13 +34,15 @@
                   </tr>
               </thead>
               <tbody>
+                  <% @order_history_details.each do |order_history_detail| %>
                   <tr>
-                      <td><%= @item.name %></td>
-                      <td><%= @item.with_tax_price %></td>
-                      <td><%= @item.amount %></td>
-                      <td><%= @item.subtotal %></td>
+                      <td><%= order_history_detail.item.name %></td>
+                      <td><%= order_history_detail.unit_price %></td>
+                      <td><%= order_history_detail.quantity %></td>
+                      <td><%= order_history_detail.unit_price * order_history_detail.quantity %></td>
                       <td></td>
                   </tr>
+                  <% end %>
               </tbody>
           </table>
       </div>

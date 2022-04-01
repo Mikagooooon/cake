@@ -16,10 +16,7 @@
           <tr>
               <td><%= order.created_at.to_s(:datetime_jp) %></td>
               <td><%= order.name %></td>
-              <td><% order.order_history_details.each do |order_history_detail| %>
-                <%= order_history_detail.quantity %>
-                <% end %>
-              </td>
+              <td><%= order.order_history_details.sum(:quantity) %></td>
               <td><%= link_to "表示する", admin_order_path(order.id), class:"btn btn-sm btn-primary" %></td>
           </tr>
           <% end %>

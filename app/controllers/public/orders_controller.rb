@@ -3,11 +3,15 @@ before_action :authenticate_customer!
 
   def index
     @orders = Order.all
+    @order = current_customer.orders
   end
 
   def new
     @order = Order.new
     @customer = current_customer
+    if current_customer.cart_items.empty?
+      redirect_to cart_items_path
+    end
   end
 
   def confirm
@@ -76,6 +80,7 @@ before_action :authenticate_customer!
     end
     @order.shipping_cost = 800
     @order.total_payment = @total + @order.shipping_cost
+    @order_history_details = @order.order_history_details
     @items = Item.all
   end
 

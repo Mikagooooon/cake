@@ -7,8 +7,10 @@ class Admin::OrdersController < ApplicationController
   def show
     @orders = Order.all
     @order = Order.find(params[:id])
-    @items = Item.all
-    @item = Item.find(params[:id])
+    @total = 0
+    @order.shipping_cost = 800
+    @order.total_payment = @total + @order.shipping_cost
+    @order_history_details = @order.order_history_details
   end
 
   def order_params

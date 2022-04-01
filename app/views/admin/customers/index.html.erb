@@ -17,7 +17,11 @@
             <td><%= customer.id %></td>
             <td><%= link_to customer.last_name, admin_customer_path(customer) %></td>
             <td><%= customer.email %></td>
-            <td></td>
+            <% if customer.is_deleted == true %>
+            <td><p>退会済み</p></td>
+            <% else %>
+            <td><p>有効</p></td>
+            <% end %>
           </tr>
           <% end %>
         </tbody>
